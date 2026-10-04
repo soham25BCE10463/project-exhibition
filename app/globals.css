@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  --background: #09090b;
+  --foreground: #f4f4f5;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background:
+    radial-gradient(ellipse at top, #18181b 0%, transparent 60%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* LiveKit voice visualizer, themed to match the amber brand colour. */
+.agent-visualizer {
+  --lk-bg: transparent;
+  --lk-fg: #fbbf24;
+  --lk-va-bar-width: 18px;
+  --lk-va-bar-gap: 14px;
+  --lk-va-bar-bg: rgba(161, 161, 170, 0.18);
+}
+.agent-visualizer > .lk-audio-bar {
+  max-height: 85%;
+}
+.agent-visualizer[data-lk-va-state="speaking"] > .lk-audio-bar {
+  box-shadow: 0 0 18px rgba(251, 191, 36, 0.55);
+}
+
+/* Control bar: keep LiveKit's mic toggle but blend it into the dark card. */
+[data-lk-theme="default"] {
+  --lk-bg: transparent;
+  --lk-control-bg: rgba(255, 255, 255, 0.06);
+  --lk-control-hover-bg: rgba(255, 255, 255, 0.12);
+  --lk-border-radius: 9999px;
+  --lk-accent-fg: #18181b;
+  font-family: inherit;
+}
+[data-lk-theme] .lk-agent-control-bar {
+  border-top: none;
+  padding: 0;
+}
+/* The bar's built-in "Start Audio" fallback duplicates our own <StartAudio>. */
+[data-lk-theme] .lk-agent-control-bar > button {
+  display: none !important;
+}
